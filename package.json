@@ -1,0 +1,29 @@
+{
+  "name": "auraria-ecs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/auraria-ecs.js",
+  "module": "dist/auraria-ecs.es.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "dependencies": {
+    "lokijs": "^1.5.6",
+    "nanoid": "^2.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "rollup": "^1.12.3",
+    "rollup-plugin-babel": "^4.3.2"
+  }
+}
