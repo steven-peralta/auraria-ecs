@@ -5,14 +5,17 @@
   "main": "dist/auraria-ecs.js",
   "module": "dist/auraria-ecs.es.js",
   "scripts": {
+    "lint": "eslint ./src",
     "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/main.js",
+    "precommit": "npm run lint && npm run build && npm run test"
   },
   "author": "",
   "license": "ISC",
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      "@babel/preset-env",
+      "airbnb"
     ]
   },
   "dependencies": {
@@ -23,6 +26,13 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-airbnb": "^3.2.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "jsdoc": "^3.6.2",
     "rollup": "^1.12.3",
     "rollup-plugin-babel": "^4.3.2"
   }

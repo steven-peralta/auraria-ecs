@@ -1,20 +1,15 @@
-import loki from 'lokijs';
-import World from './World';
+import { default as Loki } from 'lokijs';
+import World from './models/World';
 
-const db = new loki('store.db', {
-    autosave: true,
-    autosaveInterval: 300000 // autosave every 5 hours
-});
+const db = new Loki('store.db');
 
-export function newWorld(name, entities = []) {
-    let lokiCollection = db.addCollection(name, {
-        disableChangesApi: false,
-        disableMeta: true,
-        indices: ['id'],
-        unique: ['id']
-    });
-    lokiCollection.insert(entities);
-    return new World(name, lokiCollection);
+function newWorld(name, entities = [], systems = [], actionHandlers = []) {
+  const world = new World(name, db, systems, actionHandlers);
+  world.put(...entities);
+  return world;
 }
 
-export default db;
+export default {
+  db,
+  newWorld,
+};

@@ -1,3 +1,7 @@
-export {default as Component} from './Component';
-export {default as Entity} from './Entity';
-export {default as World} from './World';
+import models from './models/index';
+import store from './store';
+
+export {
+  models,
+  store,
+};
