@@ -43,8 +43,10 @@ const system1 = function System1(entities) {
 
 const world1 = store.newWorld('world1', [entity1, entity2, entity3, entity4], [system1]);
 
-entity3.components.position.values.x = 1000;
-console.log(JSON.stringify(world1.getChanges(true), null, 2));
-console.log(JSON.stringify(world1.getChanges(false), null, 2));
+const fetch = world1.get(entity1.id);
+fetch.components.position.values.x = 1000;
 
-let aspect = new Aspect(world1, new Filter().allOf('position', 'sprite'));
+const changes = world1.getChanges(true);
+console.log(JSON.stringify(changes, null, 2));
+
+// let aspect = new Aspect(world1, new Filter().allOf('position', 'sprite'));

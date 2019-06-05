@@ -4,4 +4,8 @@ export default class Component {
     this.local = local; // is this component going to be shared with the other party via network?
     this.values = values;
   }
+
+  setItem(key, value) {
+    this[key] = value;
+  }
 }

@@ -2,7 +2,6 @@ import Aspect from './Aspect';
 import Component from './Component';
 import Entity from './Entity';
 import Filter from './Filter';
-import System from './System';
 import World from './World';
 
 const models = {
@@ -10,7 +9,6 @@ const models = {
   Component,
   Entity,
   Filter,
-  System,
   World,
 };
 

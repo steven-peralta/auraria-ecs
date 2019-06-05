@@ -1,5 +1,6 @@
 import Component from './Component';
 import Entity from './Entity';
+import Aspect from './Aspect';
 
 export default class World {
   constructor(name, db, systems = [], actionHandlers = []) {
@@ -23,6 +24,10 @@ export default class World {
 
     // cache a list of the names of local components for easy filtration
     this.localComponents = [];
+  }
+
+  aspect(filter) {
+    return new Aspect(this, filter);
   }
 
   /**
@@ -124,14 +129,21 @@ export default class World {
 
   constructEntityObj(entityId) {
     const entityDoc = this.entityCollection.by('id', entityId);
-    const components = [];
-
+    const { autoUpdate } = entityDoc;
+    let entity = new Entity([], entityDoc.tags, autoUpdate, entityDoc.id);
     entityDoc.components.forEach((name) => {
-      const component = this.componentCollection.by('name', name);
-      components.push(new Component(component.name, component.values[entityId], component.local));
+      const componentDoc = this.componentCollection.by('name', name);
+      const values = componentDoc.values[entityId];
+      const component = new Component(
+        componentDoc.name,
+        autoUpdate ? this.autoUpdateProxy(entity, values) : values,
+        componentDoc.local,
+      );
+      entity.components[componentDoc.name] = autoUpdate ? this.autoUpdateProxy(entity, component)
+        : component;
     });
-
-    return new Entity(components, entityDoc.tags, entityDoc.id);
+    entity = autoUpdate ? this.autoUpdateProxy(entity, entity) : entity;
+    return entity;
   }
 
   deconstructEntityObj(entity) {
@@ -140,6 +152,7 @@ export default class World {
       id: entity.id,
       components: [],
       tags: [],
+      autoUpdate: entity.autoUpdate,
     };
     entityDoc.components = Object.keys(entity.components);
     entityDoc.tags = entity.tags;
@@ -159,5 +172,17 @@ export default class World {
       componentDocs,
       entityDoc,
     };
+  }
+
+  autoUpdateProxy(entity, obj) {
+    const handler = {
+      set: (target, key, value) => {
+        const reassigned = target;
+        reassigned[key] = value;
+        this.put(entity);
+      },
+    };
+
+    return new Proxy(obj, handler);
   }
 }
