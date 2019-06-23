@@ -83,3 +83,5 @@ typings/
 # IDEs
 .idea/
 
+# parcel-bundler build folder
+dist/

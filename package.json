@@ -6,7 +6,8 @@
   "module": "dist/auraria-ecs.es.js",
   "scripts": {
     "lint": "eslint ./src",
-    "build": "rollup -c",
+    "build:watch": "parcel src/index.js -o auraria-ecs --target node",
+    "build": "parcel build src/index.js --no-source-maps -o auraria-ecs --target node",
     "test": "jest",
     "precommit": "npm run lint && npm run build && npm run test"
   },
@@ -35,7 +36,6 @@
     "eslint-plugin-import": "^2.17.3",
     "jest": "^24.8.0",
     "jsdoc": "^3.6.2",
-    "rollup": "^1.12.3",
-    "rollup-plugin-babel": "^4.3.2"
+    "parcel-bundler": "^1.12.3"
   }
 }
