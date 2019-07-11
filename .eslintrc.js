@@ -1,7 +1,11 @@
 module.exports = {
   parser: 'babel-eslint',
   plugins: [
-    'babel'
+    'babel',
+    'jest'
   ],
-  extends: 'airbnb-base'
+  extends: [
+    'airbnb-base',
+    'plugin:jest/recommended'
+    ]
 };

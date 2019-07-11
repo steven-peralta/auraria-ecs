@@ -1,5 +1,5 @@
-import { default as Loki } from 'lokijs';
-import World from './models/World';
+import Loki from 'lokijs';
+import World from './World';
 
 const db = new Loki('store.db');
 
